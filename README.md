@@ -1,2 +1,2 @@
-# torchlife
-PyTorch implementation of Conway's Game of Life
+# TorchLife
+PyTorch implementation of Conway's Game of Life.
