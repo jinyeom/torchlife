@@ -78,7 +78,8 @@ class Life:
     self.viewer.imshow(grid, caption=f't={self.t}')
 
   def step(self):
-    neighbors = F.conv2d(self.grid, self.mask, padding=1)
+    padded = F.pad(self.grid, (1, 1, 1, 1), mode='circular')
+    neighbors = F.conv2d(padded, self.mask)
     mask0 = (neighbors < 2).to(pt.float) * self.grid
     mask1 = (neighbors > 3).to(pt.float) * self.grid
     mask2 = (neighbors == 3).to(pt.float) * (1 - self.grid)
@@ -91,7 +92,7 @@ class Life:
     self.viewer.close()
 
 if __name__ == '__main__':
-  game = Life(64, n=64)
+  game = Life(100, n=64)
   game.rand_init()
   while True:
     game.render()
